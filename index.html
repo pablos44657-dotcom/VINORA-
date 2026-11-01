@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vínora - Conecta con el mundo</title>
+<style>
+:root{--primary:#7257e8;--primary-dark:#5d43d0;--bg:#f5f5fa;--white:#fff;--text:#202033;--muted:#77778b;--line:#e8e7f0}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+header{background:var(--white);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:14px;position:sticky;top:0;z-index:5;box-shadow:0 2px 10px #0000000b}
+.logo{color:var(--primary);font-size:25px;font-weight:800;letter-spacing:-.6px}
+.search{width:min(48%,360px);padding:11px 15px;border:1px solid var(--line);border-radius:24px;background:#fafaff;font:inherit;outline:none}
+.search:focus,input:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px #7257e81a}
+.layout{max-width:1050px;margin:22px auto;padding:0 16px;display:grid;grid-template-columns:210px minmax(0,1fr);gap:20px}
+nav,.card{background:var(--white);padding:17px;border-radius:18px;box-shadow:0 3px 14px #29204b08}
+nav{height:max-content;position:sticky;top:82px}
+nav button{display:block;width:100%;padding:12px 13px;background:transparent;color:var(--text);text-align:left;border-radius:11px;font-weight:600}
+nav button:hover,nav button.active{background:#f0edff;color:var(--primary)}
+button{border:0;cursor:pointer;font:inherit}
+.primary{background:var(--primary);color:white;padding:11px 18px;border-radius:12px;font-weight:700}
+.primary:hover{background:var(--primary-dark)}
+.card{margin-bottom:16px}
+input,textarea{width:100%;padding:12px 14px;margin:6px 0;border:1px solid var(--line);border-radius:12px;font:inherit;background:#fff;outline:none}
+textarea{min-height:90px;resize:vertical}
+.hidden{display:none!important}
+.muted{color:var(--muted);font-size:13px}
+.error{color:#c62828}
+.profile-row,.post-header{display:flex;align-items:center;gap:12px}
+.avatar{width:46px;height:46px;flex:0 0 46px;border-radius:50%;background:#eee9ff;color:var(--primary);display:grid;place-items:center;font-weight:800;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.profile-avatar{width:86px;height:86px;flex-basis:86px;font-size:28px}
+.profile-edit{display:flex;align-items:center;gap:15px;margin:12px 0}
+.profile-edit .avatar{width:76px;height:76px;flex-basis:76px}
+.profile-edit-actions{display:flex;flex-wrap:wrap;gap:8px}
+.upload-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid #e5e0ff;background:#f7f5ff;color:var(--primary);border-radius:12px;font-weight:700;cursor:pointer}
+.upload-chip svg{width:19px;height:19px}
+.composer-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px}
+.preview-wrap{position:relative;margin-top:12px}
+.preview-image{display:block;max-width:100%;max-height:360px;object-fit:contain;border-radius:14px;background:#f8f8fc}
+.remove-preview{position:absolute;top:8px;right:8px;background:#202033d9;color:white;border-radius:50%;width:32px;height:32px;font-size:18px}
+.post-image{width:100%;max-height:480px;object-fit:contain;border-radius:14px;margin-top:12px;background:#f8f8fc}
+.post-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.post-actions button{background:#f5f4fa;padding:9px 13px;border-radius:10px;color:#55546b;font-weight:600}
+.post-actions button.liked{color:var(--primary);background:#eeeaff}
+.post-text{white-space:pre-wrap;overflow-wrap:anywhere}
+.comment-list{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}.comment{font-size:14px;margin:8px 0;overflow-wrap:anywhere}.comment-form{display:flex;gap:8px;align-items:center;margin-top:10px}.comment-form input{margin:0;min-width:0}.comment-form button{flex:0 0 auto;background:#f0edff;color:var(--primary);padding:10px 12px;border-radius:10px;font-weight:700}.profile-avatar{position:relative;border:0;padding:0;cursor:pointer}.profile-avatar::after{content:"📷";position:absolute;right:0;bottom:0;background:#fff;border-radius:50%;font-size:16px;width:27px;height:27px;display:grid;place-items:center;box-shadow:0 1px 5px #0002}.live-panel video{width:100%;max-height:360px;background:#15151d;border-radius:14px;margin-top:10px}.live-status{color:#c62828;font-weight:800}
+#auth{max-width:430px;margin:40px auto}
+#auth button.link{background:transparent;color:var(--primary);font-weight:700;padding:8px 0}
+.profile-bio{white-space:pre-wrap;color:var(--muted);margin:8px 0}
+@media(max-width:680px){header{padding:12px;gap:10px}.logo{font-size:22px}.search{width:50%;font-size:14px}.layout{display:block;margin:12px auto}nav{position:static;display:flex;justify-content:space-around;flex-wrap:wrap;padding:7px;margin-bottom:12px}nav button{width:auto;text-align:center;padding:10px 8px;font-size:13px}.card{padding:14px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Vínora</div>
+  <input class="search" id="search" placeholder="Buscar publicaciones..." oninput="buscar()">
+</header>
+
+<section id="auth" class="card">
+  <h2 id="authTitle">Bienvenido a Vínora</h2>
+  <p class="muted">Conecta con personas y comparte tus ideas.</p>
+  <input id="name" placeholder="Tu nombre" class="hidden" autocomplete="name">
+  <input id="email" type="email" placeholder="Correo electrónico" autocomplete="email">
+  <input id="password" type="password" placeholder="Contraseña" autocomplete="current-password">
+  <button class="primary" id="authButton" onclick="autenticar()">Iniciar sesión</button>
+  <p id="authError" class="error"></p>
+  <button class="link" onclick="cambiarModo()" id="modeButton">Crear una cuenta</button>
+  <button class="link" id="forgotLink" onclick="mostrarRecuperacion()">¿Olvidaste tu contraseña?</button>
+  <div id="forgotBox" class="hidden">
+    <h3>Recuperar contraseña</h3>
+    <p class="muted">Escribe el correo de tu cuenta y te enviaremos un enlace para crear una contraseña nueva.</p>
+    <input id="forgotEmail" type="email" placeholder="Correo electrónico" autocomplete="email">
+    <button class="primary" onclick="solicitarRecuperacion()">Enviar enlace</button>
+    <p id="forgotMessage" aria-live="polite"></p>
+    <button class="link" onclick="volverLogin()">Volver al inicio de sesión</button>
+  </div>
+  <div id="resetBox" class="hidden">
+    <h3>Crear contraseña nueva</h3>
+    <input id="newPassword" type="password" placeholder="Nueva contraseña (mínimo 8 caracteres)" autocomplete="new-password">
+    <button class="primary" onclick="restablecerContrasena()">Guardar contraseña</button>
+    <p id="resetMessage" aria-live="polite"></p>
+  </div>
+</section>
+
+<div id="app" class="layout hidden">
+  <nav>
+    <button class="active" onclick="mostrar('Inicio',this)">🏠 Inicio</button>
+    <button onclick="mostrar('Explorar',this)">🔎 Explorar</button>
+    <button onclick="mostrar('Perfil',this)">👤 Mi perfil</button>
+    <button onclick="mostrar('Live',this)">🔴 Live</button>
+    <button onclick="cerrarSesion()">↪ Cerrar sesión</button>
+  </nav>
+  <main>
+    <h2 id="pageTitle">Inicio</h2>
+
+    <section class="card" id="composer">
+      <div class="profile-row">
+        <div class="avatar" id="composerAvatar"></div>
+        <strong id="composerName">¿Qué quieres compartir?</strong>
+      </div>
+      <textarea id="postText" placeholder="Escribe algo..."></textarea>
+      <div class="composer-tools">
+        <label class="upload-chip" for="imageInput">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          Añadir foto
+        </label>
+        <input type="file" id="imageInput" accept="image/*" class="hidden" onchange="seleccionarImagen()">
+        <button class="primary" onclick="publicar()">Publicar</button>
+      </div>
+      <div id="imagePreviewWrap" class="preview-wrap hidden">
+        <img id="imagePreview" class="preview-image" alt="Vista previa">
+        <button class="remove-preview" onclick="quitarImagen()" aria-label="Quitar imagen">×</button>
+      </div>
+    </section>
+
+    <section class="card hidden live-panel" id="livePanel">
+      <h3>🔴 Transmitir en vivo</h3>
+      <p class="muted">Esta versión puede mostrar tu cámara en este dispositivo. Para que otras personas vean la transmisión en tiempo real, Vínora necesitará un servidor y un servicio de streaming.</p>
+      <input id="liveTitle" placeholder="Título de tu live">
+      <div class="composer-tools">
+        <button class="primary" id="startLiveButton" onclick="iniciarLive()">Activar cámara</button>
+        <button onclick="detenerLive()">Terminar live</button>
+      </div>
+      <p id="liveStatus" class="live-status" aria-live="polite"></p>
+      <video id="liveVideo" autoplay muted playsinline class="hidden"></video>
+    </section>
+
+    <section class="card hidden" id="profileEditor">
+      <h3>Mi perfil</h3>
+      <div class="profile-edit">
+        <div class="avatar profile-avatar" id="profileAvatarPreview"></div>
+        <div>
+          <label class="upload-chip" for="profileImageInput">📷 Cambiar foto de perfil</label>
+          <input type="file" id="profileImageInput" accept="image/*" class="hidden" onchange="seleccionarFotoPerfil()">
+          <div class="profile-edit-actions" style="margin-top:8px">
+            <button class="muted" onclick="quitarFotoPerfil()">Quitar foto</button>
+          </div>
+        </div>
+      </div>
+      <input id="editName" placeholder="Tu nombre">
+      <textarea id="editBio" placeholder="Cuéntanos sobre ti"></textarea>
+      <button class="primary" onclick="guardarPerfil()">Guardar perfil</button>
+      <p class="muted">La foto se guarda localmente en este navegador.</p>
+    </section>
+
+    <section id="feed"></section>
+  </main>
+</div>
+
+<script>
+const get = id => document.getElementById(id);
+const readJSON = (key, fallback) => {
+  try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
+  catch { return fallback; }
+};
+let usuarios = readJSON("vinora_users", []);
+let publicaciones = readJSON("vinora_posts", []);
+let usuarioActual = localStorage.getItem("vinora_user");
+let modoRegistro = false;
+let imagenSeleccionada = "";
+let fotoPerfilPendiente = null;
+
+function guardarDatos() {
+  try {
+    localStorage.setItem("vinora_users", JSON.stringify(usuarios));
+    localStorage.setItem("vinora_posts", JSON.stringify(publicaciones));
+    return true;
+  } catch (e) {
+    alert("No hay suficiente espacio local. Usa una imagen más pequeña e inténtalo de nuevo.");
+    return false;
+  }
+}
+function usuarioActivo() {
+  return usuarios.find(u => u.email === usuarioActual);
+}
+function avatarHTML(usuario, extraClass = "") {
+  const editableProfile = extraClass.includes("profile-avatar");
+  const div = document.createElement(editableProfile ? "label" : "div");
+  div.className = "avatar " + extraClass;
+  if (editableProfile) { div.htmlFor = "profileImageInput"; div.title = "Toca para cambiar tu foto"; }
+  if (usuario && usuario.foto) {
+    const img = document.createElement("img");
+    img.src = usuario.foto;
+    img.alt = "Foto de perfil";
+    div.appendChild(img);
+  } else {
+    div.textContent = usuario?.nombre?.charAt(0)?.toUpperCase() || "?";
+  }
+  return div;
+}
+function actualizarAvatares() {
+  const u = usuarioActivo();
+  if (!u) return;
+  const composerAvatar = avatarHTML(u);
+  composerAvatar.id = "composerAvatar";
+  get("composerAvatar").replaceWith(composerAvatar);
+  get("composerName").textContent = u.nombre;
+  const profileAvatar = avatarHTML(u, "profile-avatar");
+  profileAvatar.id = "profileAvatarPreview";
+  get("profileAvatarPreview").replaceWith(profileAvatar);
+}
+function cambiarModo() {
+  modoRegistro = !modoRegistro;
+  get("name").classList.toggle("hidden", !modoRegistro);
+  get("authTitle").textContent = modoRegistro ? "Crear cuenta" : "Bienvenido a Vínora";
+  get("authButton").textContent = modoRegistro ? "Registrarme" : "Iniciar sesión";
+  get("modeButton").textContent = modoRegistro ? "Ya tengo una cuenta" : "Crear una cuenta";
+  get("password").autocomplete = modoRegistro ? "new-password" : "current-password";
+  get("authError").textContent = "";
+  get("forgotLink").classList.toggle("hidden", modoRegistro);
+}
+async function autenticar() {
+  const email = get("email").value.trim().toLowerCase();
+  const password = get("password").value;
+  const nombre = get("name").value.trim();
+  if (!email || !password || (modoRegistro && !nombre)) {
+    get("authError").textContent = "Completa todos los campos."; return;
+  }
+  get("authButton").disabled = true;
+  get("authError").textContent = "Conectando...";
+  try {
+    const response = await fetch(modoRegistro ? "/api/register" : "/api/login", {
+      method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({email, password, name:nombre})
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "No se pudo completar la operación.");
+    let perfil = usuarios.find(u => u.email === email);
+    if (!perfil) { perfil = {email, nombre:data.user.name, bio:"", foto:""}; usuarios.push(perfil); }
+    else if (data.user.name) perfil.nombre = data.user.name;
+    // Nunca guardamos contraseñas en el navegador.
+    usuarios = usuarios.map(u => { const {password, ...safe} = u; return safe; });
+    guardarDatos();
+    usuarioActual = email;
+    localStorage.setItem("vinora_user", email);
+    get("authError").textContent = "";
+    iniciarApp();
+  } catch (e) { get("authError").textContent = e.message; }
+  finally { get("authButton").disabled = false; }
+}
+function mostrarRecuperacion() {
+  get("forgotBox").classList.remove("hidden");
+  get("resetBox").classList.add("hidden");
+  get("name").classList.add("hidden"); get("email").classList.add("hidden"); get("password").classList.add("hidden");
+  get("authButton").classList.add("hidden"); get("modeButton").classList.add("hidden"); get("forgotLink").classList.add("hidden");
+  get("authTitle").textContent = "Recuperar acceso";
+  get("forgotEmail").value = get("email").value;
+}
+function volverLogin() {
+  get("forgotBox").classList.add("hidden"); get("resetBox").classList.add("hidden");
+  get("name").classList.toggle("hidden", !modoRegistro); get("email").classList.remove("hidden"); get("password").classList.remove("hidden");
+  get("authButton").classList.remove("hidden"); get("modeButton").classList.remove("hidden"); get("forgotLink").classList.toggle("hidden", modoRegistro);
+  get("authTitle").textContent = modoRegistro ? "Crear cuenta" : "Bienvenido a Vínora";
+  get("authButton").textContent = modoRegistro ? "Registrarme" : "Iniciar sesión";
+}
+async function solicitarRecuperacion() {
+  const email = get("forgotEmail").value.trim().toLowerCase();
+  const message = get("forgotMessage");
+  message.className = "muted"; message.textContent = "Enviando...";
+  try {
+    const r = await fetch("/api/forgot-password", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email})});
+    const d = await r.json(); if (!r.ok) throw new Error(d.error || "No se pudo enviar la solicitud.");
+    message.textContent = d.message;
+  } catch(e) { message.className = "error"; message.textContent = e.message; }
+}
+async function restablecerContrasena() {
+  const token = new URLSearchParams(location.search).get("reset");
+  const password = get("newPassword").value;
+  const message = get("resetMessage");
+  try {
+    const r = await fetch("/api/reset-password", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({token,password})});
+    const d = await r.json(); if (!r.ok) throw new Error(d.error || "No se pudo cambiar la contraseña.");
+    message.className = "muted"; message.textContent = d.message;
+    history.replaceState({}, "", location.pathname); setTimeout(volverLogin, 1800);
+  } catch(e) { message.className = "error"; message.textContent = e.message; }
+}
+
+function iniciarApp() {
+  const u = usuarioActivo();
+  if (!u) { cerrarSesion(); return; }
+  get("auth").classList.add("hidden");
+  get("app").classList.remove("hidden");
+  get("editName").value = u.nombre;
+  get("editBio").value = u.bio || "";
+  actualizarAvatares();
+  mostrar("Inicio");
+}
+function cerrarSesion() {
+  usuarioActual = null;
+  localStorage.removeItem("vinora_user");
+  get("app").classList.add("hidden");
+  get("auth").classList.remove("hidden");
+}
+function leerImagen(archivo, callback) {
+  if (!archivo || !archivo.type.startsWith("image/")) {
+    alert("Selecciona una imagen válida."); return;
+  }
+  if (archivo.size > 1.5 * 1024 * 1024) {
+    alert("La imagen debe pesar menos de 1.5 MB."); return;
+  }
+  const lector = new FileReader();
+  lector.onload = e => callback(e.target.result);
+  lector.onerror = () => alert("No se pudo leer la imagen.");
+  lector.readAsDataURL(archivo);
+}
+function seleccionarImagen() {
+  const archivo = get("imageInput").files[0];
+  if (!archivo) return;
+  leerImagen(archivo, data => {
+    imagenSeleccionada = data;
+    get("imagePreview").src = data;
+    get("imagePreviewWrap").classList.remove("hidden");
+  });
+}
+function quitarImagen() {
+  imagenSeleccionada = "";
+  get("imageInput").value = "";
+  get("imagePreview").src = "";
+  get("imagePreviewWrap").classList.add("hidden");
+}
+function seleccionarFotoPerfil() {
+  const archivo = get("profileImageInput").files[0];
+  if (!archivo) return;
+  leerImagen(archivo, data => {
+    fotoPerfilPendiente = data;
+    const u = usuarioActivo();
+    const preview = { ...u, foto: data };
+    const avatar = avatarHTML(preview, "profile-avatar");
+    avatar.id = "profileAvatarPreview";
+    get("profileAvatarPreview").replaceWith(avatar);
+  });
+}
+function quitarFotoPerfil() {
+  fotoPerfilPendiente = "";
+  const u = usuarioActivo();
+  const avatar = avatarHTML({...u, foto:""}, "profile-avatar");
+  avatar.id = "profileAvatarPreview";
+  get("profileAvatarPreview").replaceWith(avatar);
+  get("profileImageInput").value = "";
+}
+function publicar() {
+  const texto = get("postText").value.trim();
+  if (!texto && !imagenSeleccionada) {
+    alert("Escribe algo o añade una foto."); return;
+  }
+  publicaciones.unshift({
+    id: Date.now(), email: usuarioActual, texto,
+    imagen: imagenSeleccionada, likes: [], comments: [],
+    fecha: new Date().toLocaleString()
+  });
+  get("postText").value = "";
+  quitarImagen();
+  if (guardarDatos()) dibujar();
+}
+function darLike(id) {
+  const p = publicaciones.find(p => p.id === id);
+  if (!p) return;
+  p.likes = p.likes || [];
+  if (p.likes.includes(usuarioActual)) {
+    p.likes = p.likes.filter(e => e !== usuarioActual);
+  } else p.likes.push(usuarioActual);
+  if (guardarDatos()) dibujar();
+}
+function dibujar(lista = publicaciones) {
+  const feed = get("feed");
+  feed.innerHTML = "";
+  lista.forEach(p => {
+    const autor = usuarios.find(u => u.email === p.email);
+    if (!autor) return;
+    const card = document.createElement("article");
+    card.className = "card";
+    const header = document.createElement("div");
+    header.className = "post-header";
+    header.append(avatarHTML(autor));
+    const info = document.createElement("div");
+    const nombre = document.createElement("strong");
+    nombre.textContent = autor.nombre;
+    const fecha = document.createElement("div");
+    fecha.className = "muted";
+    fecha.textContent = p.fecha || "";
+    info.append(nombre, fecha);
+    header.append(info);
+    card.append(header);
+    if (p.texto) {
+      const texto = document.createElement("p");
+      texto.className = "post-text";
+      texto.textContent = p.texto;
+      card.append(texto);
+    }
+    if (p.imagen) {
+      const img = document.createElement("img");
+      img.className = "post-image";
+      img.src = p.imagen;
+      img.alt = "Imagen compartida";
+      card.append(img);
+    }
+    const actions = document.createElement("div");
+    actions.className = "post-actions";
+    const likes = p.likes || [];
+    const like = document.createElement("button");
+    like.className = likes.includes(usuarioActual) ? "liked" : "";
+    like.textContent = (likes.includes(usuarioActual) ? "♥ " : "♡ ") + "Me gusta (" + likes.length + ")";
+    like.onclick = () => darLike(p.id);
+    actions.append(like);
+    const share = document.createElement("button");
+    share.textContent = "↗ Compartir";
+    share.onclick = () => compartirPublicacion(p);
+    actions.append(share);
+    if (p.email === usuarioActual) {
+      const del = document.createElement("button");
+      del.textContent = "🗑 Eliminar";
+      del.onclick = () => {
+        if (!confirm("¿Quieres eliminar esta publicación?")) return;
+        publicaciones = publicaciones.filter(item => item.id !== p.id);
+        if (guardarDatos()) dibujar();
+      };
+      actions.append(del);
+    }
+    card.append(actions);
+    const comments = document.createElement("div");
+    comments.className = "comment-list";
+    (p.comments || []).forEach(c => {
+      const item = document.createElement("div");
+      item.className = "comment";
+      const commenter = usuarios.find(u => u.email === c.email);
+      const strong = document.createElement("strong");
+      strong.textContent = (commenter?.nombre || "Usuario") + ": ";
+      item.append(strong, document.createTextNode(c.text));
+      comments.append(item);
+    });
+    const form = document.createElement("form");
+    form.className = "comment-form";
+    const input = document.createElement("input");
+    input.placeholder = "Escribe un comentario...";
+    input.maxLength = 500;
+    input.setAttribute("aria-label", "Comentario");
+    const submit = document.createElement("button");
+    submit.type = "submit";
+    submit.textContent = "Comentar";
+    form.append(input, submit);
+    form.onsubmit = e => { e.preventDefault(); comentar(p.id, input.value); };
+    comments.append(form);
+    card.append(comments);
+    feed.append(card);
+  });
+}
+function comentar(id, texto) {
+  texto = texto.trim();
+  if (!texto) return;
+  const p = publicaciones.find(item => item.id === id);
+  if (!p) return;
+  p.comments = p.comments || [];
+  p.comments.push({email: usuarioActual, text: texto, fecha: new Date().toISOString()});
+  if (guardarDatos()) dibujar();
+}
+async function compartirPublicacion(p) {
+  const autor = usuarios.find(u => u.email === p.email);
+  const texto = `${autor?.nombre || "Usuario"} en Vínora: ${p.texto || "Publicación"}`;
+  try {
+    if (navigator.share) await navigator.share({title:"Vínora", text:texto});
+    else if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(texto); alert("Texto de la publicación copiado para compartir."); }
+    else prompt("Copia este texto para compartir:", texto);
+  } catch (e) { if (e.name !== "AbortError") alert("No se pudo compartir desde este navegador."); }
+}
+let liveStream = null;
+async function iniciarLive() {
+  if (!navigator.mediaDevices?.getUserMedia) {
+    get("liveStatus").textContent = "Tu navegador no permite acceder a la cámara. Prueba en un navegador compatible y con HTTPS.";
+    return;
+  }
+  try {
+    liveStream = await navigator.mediaDevices.getUserMedia({video:true, audio:true});
+    get("liveVideo").srcObject = liveStream;
+    get("liveVideo").classList.remove("hidden");
+    get("liveStatus").textContent = "Cámara activa en este dispositivo (vista previa local; no se transmite a otros usuarios).";
+    get("startLiveButton").textContent = "Cámara activada";
+  } catch (e) {
+    get("liveStatus").textContent = "No se pudo activar la cámara o el micrófono. Revisa los permisos del navegador.";
+  }
+}
+function detenerLive() {
+  if (liveStream) liveStream.getTracks().forEach(track => track.stop());
+  liveStream = null;
+  get("liveVideo").srcObject = null;
+  get("liveVideo").classList.add("hidden");
+  get("liveStatus").textContent = "Transmisión local terminada.";
+  get("startLiveButton").textContent = "Activar cámara";
+}
+function buscar() {
+  const q = get("search").value.toLowerCase();
+  dibujar(publicaciones.filter(p => {
+    const autor = usuarios.find(u => u.email === p.email);
+    return (p.texto || "").toLowerCase().includes(q) ||
+      (autor && autor.nombre.toLowerCase().includes(q));
+  }));
+}
+function mostrar(pagina, boton) {
+  get("pageTitle").textContent = pagina;
+  get("composer").classList.toggle("hidden", pagina !== "Inicio");
+  get("profileEditor").classList.toggle("hidden", pagina !== "Perfil");
+  get("livePanel").classList.toggle("hidden", pagina !== "Live");
+  document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+  if (boton) boton.classList.add("active");
+  if (pagina === "Live") { get("feed").innerHTML = ""; return; }
+  if (pagina === "Perfil") {
+    const u = usuarioActivo();
+    get("editName").value = u?.nombre || "";
+    get("editBio").value = u?.bio || "";
+    actualizarAvatares();
+    dibujar(publicaciones.filter(p => p.email === usuarioActual));
+  } else dibujar();
+}
+function guardarPerfil() {
+  const u = usuarioActivo();
+  if (!u) return;
+  u.nombre = get("editName").value.trim() || u.nombre;
+  u.bio = get("editBio").value.trim();
+  if (fotoPerfilPendiente !== null) u.foto = fotoPerfilPendiente;
+  if (guardarDatos()) {
+    fotoPerfilPendiente = null;
+    get("profileImageInput").value = "";
+    actualizarAvatares();
+    mostrar("Perfil");
+  }
+}
+const resetToken = new URLSearchParams(location.search).get("reset");
+if (resetToken) {
+  get("authTitle").textContent = "Restablecer contraseña";
+  get("name").classList.add("hidden"); get("email").classList.add("hidden"); get("password").classList.add("hidden");
+  get("authButton").classList.add("hidden"); get("modeButton").classList.add("hidden"); get("forgotLink").classList.add("hidden");
+  get("resetBox").classList.remove("hidden");
+} else if (usuarioActual) iniciarApp();
+</script>
+</body>
+</html>
