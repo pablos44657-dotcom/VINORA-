@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: vinora
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: DATABASE_URL
+        fromDatabase:
+          name: vinora-db
+          property: connectionString
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+      - key: APP_URL
+        sync: false
+
+databases:
+  - name: vinora-db
+    plan: free
+    databaseName: vinora
+    user: vinora
