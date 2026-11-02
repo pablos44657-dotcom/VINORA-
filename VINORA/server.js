@@ -118,6 +118,11 @@ async function canSeeProfile(viewerId, ownerId) {
  const f=await pool.query('SELECT 1 FROM follows WHERE follower_id=$1 AND following_id=$2',[viewerId,ownerId]);
  return !!f.rowCount;
 }
+async function canSeePost(viewerId, postId) {
+ const post = await pool.query('SELECT user_id FROM posts WHERE id=$1',[postId]);
+ if (!post.rowCount) return false;
+ return canSeeProfile(viewerId, post.rows[0].user_id);
+}
 
 app.get('/api/health', (_req,res)=>res.json({ok:true,service:'Vinora API',version:2}));
 app.post('/api/register', async(req,res)=>{
