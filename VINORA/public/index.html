@@ -1,66 +1,189 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3eee6"><title>Vínora · Conecta a tu manera</title>
-<style>
-:root{--bg:#f5f1ea;--surface:#fffdf9;--surface2:#eee8de;--text:#292923;--muted:#817d73;--line:#e7e0d5;--accent:#8b7862;--accent2:#6e5d4b;--danger:#b64d4d;--shadow:0 12px 35px #51432b0b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}body[data-theme="light"]{--bg:#f7f8fa;--surface:#fff;--surface2:#eef0f3;--text:#272a30;--muted:#747b86;--line:#e5e8ed;--accent:#667487;--accent2:#4e5c6e}body[data-theme="dark"]{--bg:#17191c;--surface:#22252a;--surface2:#2d3137;--text:#f1eee8;--muted:#a8a49d;--line:#393d43;--accent:#c3ad8d;--accent2:#dfc7a5;--shadow:0 12px 35px #0004}body[data-theme="sage"]{--bg:#eff2ec;--surface:#fbfdf9;--surface2:#e4eade;--text:#29332b;--muted:#778176;--line:#dce4d8;--accent:#71856f;--accent2:#536b53}body[data-theme="rose"]{--bg:#f6efed;--surface:#fffaf9;--surface2:#f0e3e0;--text:#332b2b;--muted:#897b78;--line:#eadbd7;--accent:#a27d79;--accent2:#805d59}
-button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}button:disabled{opacity:.55;cursor:wait}.hidden{display:none!important}.muted{color:var(--muted)}.small{font-size:12px}.brand{font-weight:850;letter-spacing:-1px;font-size:25px;color:var(--text)}.brand span{color:var(--accent)}.top{height:72px;position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(20px,calc((100vw - 1100px)/2));gap:18px}.top-actions{display:flex;align-items:center;gap:10px}.search-wrap{position:relative;width:min(38vw,330px)}.search-wrap svg{position:absolute;left:13px;top:12px;width:17px;height:17px;color:var(--muted)}.search{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:30px;padding:9px 14px 9px 38px;outline:none}.icon-btn{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--surface2);color:var(--text)}.icon-btn svg,.nav-btn svg,.action svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.shell{max-width:1100px;margin:26px auto;padding:0 18px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:25px}.sidebar{position:sticky;top:94px;align-self:start;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:12px;box-shadow:var(--shadow)}.nav-btn{width:100%;display:flex;align-items:center;gap:13px;padding:12px 14px;border-radius:13px;background:transparent;color:var(--muted);text-align:left;margin:2px 0}.nav-btn.active,.nav-btn:hover{background:var(--surface2);color:var(--text)}.nav-btn span{font-weight:650}.main{min-width:0}.page-head{display:flex;align-items:center;justify-content:space-between;margin:0 0 16px}.page-head h1{font-size:25px;letter-spacing:-.7px;margin:0}.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}.field{width:100%;border:1px solid var(--line);border-radius:13px;padding:12px 14px;background:var(--bg);color:var(--text);outline:none;margin:5px 0}.field:focus{border-color:var(--accent)}textarea.field{min-height:90px;resize:vertical}.btn{background:var(--accent);color:#fff;border-radius:12px;padding:10px 16px;font-weight:700}.btn:hover{background:var(--accent2)}.btn-soft{background:var(--surface2);color:var(--text);border-radius:12px;padding:9px 13px;font-weight:650}.btn-line{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:12px;padding:9px 13px}.btn-danger{color:var(--danger);background:transparent;padding:8px}.row{display:flex;align-items:center;gap:12px}.between{justify-content:space-between}.avatar{width:44px;height:44px;flex:0 0 44px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;overflow:hidden;color:var(--accent2);font-weight:800}.avatar img{width:100%;height:100%;object-fit:cover}.avatar.big{width:86px;height:86px;flex-basis:86px;font-size:25px}.profile-card{padding:24px}.profile-cover{height:90px;border-radius:15px;background:linear-gradient(115deg,var(--surface2),var(--bg));margin-bottom:-44px}.profile-top{padding:0 10px;display:flex;align-items:end;gap:16px}.profile-top .avatar{border:4px solid var(--surface)}.profile-meta{padding:10px}.story-strip{display:flex;gap:15px;overflow-x:auto;padding:4px 2px 14px;scrollbar-width:thin}.story-person{width:72px;flex:0 0 72px;text-align:center;cursor:pointer}.story-ring{width:64px;height:64px;border-radius:50%;padding:3px;margin:0 auto 5px;background:linear-gradient(135deg,#b18c67,#d9b991,#8a7561);}.story-ring.seen{background:var(--line)}.story-ring .avatar{width:58px;height:58px;border:2px solid var(--surface)}.story-name{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}.story-add{width:64px;height:64px;border-radius:50%;margin:0 auto 5px;border:1px dashed var(--accent);display:grid;place-items:center;color:var(--accent);font-size:26px;background:var(--surface2)}.story-view{position:fixed;inset:0;background:#151515ed;z-index:50;display:flex;align-items:center;justify-content:center;padding:18px}.story-view-inner{width:min(420px,100%);max-height:92vh;color:white}.story-view img{width:100%;max-height:72vh;object-fit:contain;border-radius:14px}.story-view button{background:#ffffff22;color:white;border-radius:20px;padding:8px 12px}.post-head{display:flex;align-items:center;gap:11px}.post-body{white-space:pre-wrap;overflow-wrap:anywhere;margin:15px 0}.post-image{width:100%;max-height:560px;object-fit:contain;border-radius:15px;background:var(--bg)}.actions{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.action{display:flex;align-items:center;gap:6px;padding:8px 10px;border-radius:10px;background:transparent;color:var(--muted)}.action:hover,.action.active{background:var(--surface2);color:var(--accent2)}.comment{padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}.comment-form{display:flex;gap:8px;margin-top:10px}.comment-form input{flex:1;min-width:0}.chat-layout{display:grid;grid-template-columns:minmax(180px,.75fr) minmax(0,1.25fr);gap:14px;min-height:420px}.chat-list,.chat-room{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface)}.chat-list{padding:8px}.chat-item{width:100%;display:flex;gap:10px;align-items:center;text-align:left;padding:11px;border-radius:12px;background:transparent;color:var(--text)}.chat-item.active,.chat-item:hover{background:var(--surface2)}.chat-room{display:flex;flex-direction:column;min-height:420px}.chat-messages{padding:14px;flex:1;overflow:auto;max-height:440px}.bubble{max-width:82%;padding:10px 13px;border-radius:15px;background:var(--surface2);margin:8px 0;overflow-wrap:anywhere}.bubble.mine{margin-left:auto;background:var(--accent);color:white}.chat-compose{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}.chat-compose input{flex:1;min-width:0}.empty{text-align:center;padding:36px 16px;color:var(--muted)}.auth{max-width:420px;margin:8vh auto;padding:26px}.auth h1{font-size:28px;margin:0}.auth .brand{margin-bottom:16px}.link{background:none;color:var(--accent2);padding:7px 0;font-weight:650}.setting-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:14px 0;border-bottom:1px solid var(--line)}.setting-row:last-child{border:0}.toggle{width:46px;height:26px;appearance:none;background:var(--line);border-radius:20px;position:relative;cursor:pointer}.toggle:checked{background:var(--accent)}.toggle:before{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:white;left:3px;top:3px;transition:.2s}.toggle:checked:before{left:23px}.file-label{display:inline-flex;padding:9px 13px;border-radius:12px;background:var(--surface2);color:var(--text);font-weight:650;cursor:pointer}.results{display:grid;gap:8px}.person-result{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}.person-result .grow{flex:1;min-width:0}.person-result p{margin:2px 0}.story-caption{padding:10px 2px}.notice{padding:10px 12px;background:var(--surface2);border-radius:12px;color:var(--muted);font-size:13px}
-#authScreen{min-height:100vh;padding:1px 15px}.error{color:var(--danger);font-size:13px;min-height:20px}.success{color:#53805b;font-size:13px}@media(max-width:720px){.top{height:62px;padding:0 14px}.shell{display:block;margin:14px auto;padding:0 12px}.sidebar{position:fixed;z-index:20;bottom:0;left:0;right:0;top:auto;border-radius:18px 18px 0 0;padding:6px 4px calc(6px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;gap:0}.nav-btn{width:auto;flex:1;display:flex;flex-direction:column;gap:3px;padding:7px 2px;margin:0;font-size:10px;text-align:center}.nav-btn svg{width:20px;height:20px}.nav-btn span{font-size:10px}.main{padding-bottom:88px}.search-wrap{width:min(48vw,220px)}.card{padding:14px}.chat-layout{grid-template-columns:1fr}.chat-list{max-height:170px;overflow:auto}.chat-room{min-height:360px}.page-head h1{font-size:22px}}
-</style></head><body>
-<section id="authScreen"><div class="card auth"><div class="brand">ví<span>nora</span></div><h1 id="authTitle">Bienvenido a Vínora</h1><p class="muted">Un espacio para conectar a tu manera.</p><input id="regName" class="field hidden" placeholder="Tu nombre" maxlength="80"><input id="email" class="field" type="email" placeholder="Correo electrónico" autocomplete="username"><input id="password" class="field" type="password" placeholder="Contraseña" autocomplete="current-password"><button class="btn" id="authButton" onclick="authenticate()">Iniciar sesión</button><p id="authError" class="error"></p><button class="link" id="modeButton" onclick="toggleMode()">Crear una cuenta</button><button class="link" onclick="showForgot()">¿Olvidaste tu contraseña?</button><div id="forgotBox" class="hidden"><h3>Recuperar contraseña</h3><input id="forgotEmail" class="field" type="email" placeholder="Correo electrónico"><button class="btn" onclick="forgotPassword()">Enviar enlace</button><p id="forgotMessage" class="error"></p></div><div id="resetBox" class="hidden"><h3>Nueva contraseña</h3><input id="newPassword" class="field" type="password" placeholder="Mínimo 8 caracteres"><button class="btn" onclick="resetPassword()">Guardar contraseña</button><p id="resetMessage" class="error"></p></div></div></section>
-<header class="top hidden" id="topbar"><div class="brand">ví<span>nora</span></div><div class="top-actions"><div class="search-wrap"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 4 4"></path></svg><input id="search" class="search" placeholder="Buscar personas" oninput="searchPeople()" aria-label="Buscar personas"></div><button class="icon-btn" title="Configuración" onclick="showPage('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.7 1.7-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5v.2h-2.4v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1L8 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H6.7v-2.4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9L8 8.6l1.7-1.7.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5v-.2h2.4v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.7 1.7-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.2V14h-.2a1.7 1.7 0 0 0-1.4 1z"></path></svg></button></div></header>
-<div id="app" class="shell hidden"><aside class="sidebar"><button class="nav-btn active" data-page="home" onclick="showPage('home',this)"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"></path></svg><span>Inicio</span></button><button class="nav-btn" data-page="explore" onclick="showPage('explore',this)"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 4 4"></path></svg><span>Explorar</span></button><button class="nav-btn" data-page="messages" onclick="showPage('messages',this)"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-9 8.5 9 9 0 0 1-4-.9L3 21l1.9-4.2A8.5 8.5 0 1 1 21 11.5z"></path></svg><span>Mensajes</span></button><button class="nav-btn" data-page="saved" onclick="showPage('saved',this)"><svg viewBox="0 0 24 24"><path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18l-6-4-6 4z"></path></svg><span>Guardados</span></button><button class="nav-btn" data-page="profile" onclick="showPage('profile',this)"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg><span>Perfil</span></button></aside><main class="main"><div class="page-head"><h1 id="pageTitle">Inicio</h1><span class="muted small" id="pageHint"></span></div><div id="pageContent"></div></main></div>
-<div id="storyModal" class="story-view hidden" onclick="if(event.target===this)closeStory()"><div class="story-view-inner"><div class="row between" style="margin-bottom:12px"><strong id="storyOwner"></strong><button onclick="closeStory()">Cerrar ×</button></div><img id="storyMedia" alt="Historia"><div id="storyCaption" class="story-caption"></div></div></div>
-<script>
-'use strict';const $=id=>document.getElementById(id);let me=null,registerMode=false,currentPage='home',posts=[],stories=[],people=[],activeConversation=null,chatTimer=null,storyImage=null,postImage=null,profileImage=null,profileTarget=null;
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-async function api(url,options={}){const r=await fetch(url,{credentials:'same-origin',...options,headers:{...(options.body?{'Content-Type':'application/json'}:{}),...(options.headers||{})}});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||'No se pudo completar la operación.');return d}
-function avatar(u,cls=''){return `<div class="avatar ${cls}">${u?.avatar?`<img src="${u.avatar}" alt="">`:esc((u?.name||'?').slice(0,1).toUpperCase())}</div>`}
-function fileData(file,max=5*1024*1024){return new Promise((resolve,reject)=>{if(!file||!file.type.startsWith('image/'))return reject(Error('Selecciona una imagen válida.'));if(file.size>max)return reject(Error('La imagen supera el tamaño permitido.'));const rd=new FileReader();rd.onload=()=>resolve(rd.result);rd.onerror=()=>reject(Error('No se pudo leer la imagen.'));rd.readAsDataURL(file);})}
-function authMode(){ $('regName').classList.toggle('hidden',!registerMode);$('authTitle').textContent=registerMode?'Crear cuenta':'Bienvenido a Vínora';$('authButton').textContent=registerMode?'Registrarme':'Iniciar sesión';$('modeButton').textContent=registerMode?'Ya tengo una cuenta':'Crear una cuenta';$('password').autocomplete=registerMode?'new-password':'current-password';$('authError').textContent='';}
-function toggleMode(){registerMode=!registerMode;authMode()}
-async function authenticate(){const email=$('email').value.trim().toLowerCase(),password=$('password').value,name=$('regName').value.trim();if(!email||!password||(registerMode&&!name))return $('authError').textContent='Completa todos los campos.';if(registerMode&&password.length<8)return $('authError').textContent='La contraseña debe tener al menos 8 caracteres.';const b=$('authButton');b.disabled=true;$('authError').textContent='Conectando...';try{await api(registerMode?'/api/register':'/api/login',{method:'POST',body:JSON.stringify({email,password,name})});$('password').value='';await boot()}catch(e){$('authError').textContent=e.message}finally{b.disabled=false}}
-async function boot(){try{const d=await api('/api/me');me=d.user;document.body.dataset.theme=me.theme||'sand';$('authScreen').classList.add('hidden');$('topbar').classList.remove('hidden');$('app').classList.remove('hidden');await showPage('home');}catch(e){me=null;$('authScreen').classList.remove('hidden');$('topbar').classList.add('hidden');$('app').classList.add('hidden')}}
-async function logout(){try{await api('/api/logout',{method:'POST'})}catch{}if(chatTimer)clearInterval(chatTimer);me=null;activeConversation=null;$('email').value='';$('password').value='';$('authScreen').classList.remove('hidden');$('topbar').classList.add('hidden');$('app').classList.add('hidden')}
-function showForgot(){$('forgotBox').classList.toggle('hidden');$('forgotEmail').value=$('email').value}
-async function forgotPassword(){try{const d=await api('/api/forgot-password',{method:'POST',body:JSON.stringify({email:$('forgotEmail').value.trim()})});$('forgotMessage').textContent=d.message}catch(e){$('forgotMessage').textContent=e.message}}
-async function resetPassword(){const token=new URLSearchParams(location.search).get('reset');try{const d=await api('/api/reset-password',{method:'POST',body:JSON.stringify({token,password:$('newPassword').value})});$('resetMessage').textContent=d.message;history.replaceState({},'',location.pathname)}catch(e){$('resetMessage').textContent=e.message}}
-async function showPage(page,button){currentPage=page;if(chatTimer){clearInterval(chatTimer);chatTimer=null}document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.page===page));const titles={home:'Inicio',explore:'Explorar',messages:'Mensajes',saved:'Guardados',profile:'Mi perfil',settings:'Configuración',publicProfile:'Perfil'};$('pageTitle').textContent=titles[page]||'Vínora';$('pageHint').textContent='';const c=$('pageContent');c.innerHTML='<div class="card empty">Cargando…</div>';try{if(page==='home')await renderHome();else if(page==='explore')await renderExplore();else if(page==='messages')await renderMessages();else if(page==='saved')await renderSaved();else if(page==='profile')await renderMyProfile();else if(page==='settings')await renderSettings();else if(page==='publicProfile')await renderPublicProfile();}catch(e){c.innerHTML=`<div class="card empty">${esc(e.message)}</div>`}}
-function composer(){return `<section class="card"><div class="row">${avatar(me)}<strong>${esc(me.name)}, comparte algo</strong></div><textarea id="postBody" class="field" placeholder="¿Qué te gustaría compartir?" maxlength="5000"></textarea><div class="row between"><label class="file-label" for="postFile">＋ Añadir foto</label><input id="postFile" type="file" accept="image/*" class="hidden" onchange="pickPostImage(this)"><button class="btn" onclick="createPost()">Publicar</button></div><p id="postPreview" class="muted small"></p></section>`}
-async function pickPostImage(input){try{postImage=await fileData(input.files[0]);$('postPreview').textContent='Foto lista para publicar.'}catch(e){alert(e.message)}}
-async function createPost(){const body=$('postBody').value.trim();if(!body&&!postImage)return alert('Escribe algo o añade una foto.');try{await api('/api/posts',{method:'POST',body:JSON.stringify({body,image:postImage})});postImage=null;await renderHome()}catch(e){alert(e.message)}}
-function postCard(p){return `<article class="card"><div class="post-head">${avatar({name:p.name,avatar:p.avatar})}<div style="flex:1"><strong>${esc(p.name)}</strong><div class="muted small">${new Date(p.createdAt).toLocaleString()}</div></div>${p.userId===me.id?`<button class="btn-danger" onclick="deletePost('${p.id}')">Eliminar</button>`:''}</div>${p.body?`<div class="post-body">${esc(p.body)}</div>`:''}${p.image?`<img class="post-image" src="${p.image}" alt="Imagen de publicación">`:''}<div class="actions"><button class="action ${p.liked?'active':''}" onclick="likePost('${p.id}')"><svg viewBox="0 0 24 24"><path d="M20.8 8.7c0 5.2-8.8 11-8.8 11s-8.8-5.8-8.8-11A4.7 4.7 0 0 1 12 6a4.7 4.7 0 0 1 8.8 2.7z"></path></svg>${p.likes}</button><button class="action" onclick="toggleComments('${p.id}')"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-9 8.5 9 9 0 0 1-4-.9L3 21l1.9-4.2A8.5 8.5 0 1 1 21 11.5z"></path></svg>Comentar (${p.commentCount})</button><button class="action ${p.saved?'active':''}" onclick="savePost('${p.id}')"><svg viewBox="0 0 24 24"><path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18l-6-4-6 4z"></path></svg>${p.saved?'Guardada':'Guardar'}</button><button class="action" onclick="sharePost('${p.id}')">↗ Compartir</button></div><div id="comments-${p.id}" class="hidden"></div></article>`}
-async function renderHome(){const [pd,sd]=await Promise.all([api('/api/posts'),api('/api/stories')]);posts=pd.posts;stories=sd.stories;$('pageContent').innerHTML=`<section class="card"><div class="row between"><strong>Historias</strong><span class="muted small">Desaparecen en 24 horas</span></div><div class="story-strip" id="storyStrip"></div></section>${composer()}<div id="postList">${posts.length?posts.map(postCard).join(''):'<div class="card empty">Todavía no hay publicaciones. ¡Sé la primera persona en compartir!</div>'}</div>`;renderStoryStrip()}
-function renderStoryStrip(){const strip=$('storyStrip');if(!strip)return;const groups=[];const seen=new Set();for(const s of stories){if(!seen.has(s.userId)){seen.add(s.userId);groups.push(s)}}strip.innerHTML=`<div class="story-person" onclick="addStory()"><div class="story-add">＋</div><div class="story-name">Tu historia</div></div>`+groups.map(s=>`<div class="story-person" onclick="viewStory('${s.id}')"><div class="story-ring">${avatar({name:s.name,avatar:s.avatar})}</div><div class="story-name">${esc(s.name)}</div></div>`).join('')}
-async function addStory(){const inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.onchange=async()=>{try{const media=await fileData(inp.files[0]);const caption=prompt('Añade un texto a tu historia (opcional):')||'';await api('/api/stories',{method:'POST',body:JSON.stringify({media,caption})});const d=await api('/api/stories');stories=d.stories;renderStoryStrip()}catch(e){alert(e.message)}};inp.click()}
-function viewStory(id){const s=stories.find(x=>x.id===id);if(!s)return;$('storyOwner').textContent=s.name;$('storyMedia').src=s.media;$('storyCaption').textContent=s.caption||'';$('storyModal').classList.remove('hidden')}
-function closeStory(){$('storyModal').classList.add('hidden')}
-async function likePost(id){try{await api(`/api/posts/${id}/like`,{method:'POST'});await refreshCurrentPosts()}catch(e){alert(e.message)}}
-async function savePost(id){try{await api(`/api/posts/${id}/save`,{method:'POST'});await refreshCurrentPosts()}catch(e){alert(e.message)}}
-async function deletePost(id){if(!confirm('¿Eliminar esta publicación?'))return;try{await api(`/api/posts/${id}`,{method:'DELETE'});await refreshCurrentPosts()}catch(e){alert(e.message)}}
-async function refreshCurrentPosts(){if(currentPage==='home')await renderHome();else if(currentPage==='saved')await renderSaved();else if(currentPage==='publicProfile')await renderPublicProfile()}
-async function toggleComments(id){const box=$(`comments-${id}`);if(!box)return;if(!box.classList.contains('hidden')){box.classList.add('hidden');return}try{const d=await api(`/api/posts/${id}/comments`);box.classList.remove('hidden');box.innerHTML=d.comments.map(c=>`<div class="comment"><strong>${esc(c.name)}</strong> ${esc(c.body)}</div>`).join('')+`<form class="comment-form" onsubmit="sendComment(event,'${id}')"><input class="field" id="comment-${id}" maxlength="500" placeholder="Escribe un comentario…"><button class="btn">Enviar</button></form>`}catch(e){box.textContent=e.message}}
-async function sendComment(e,id){e.preventDefault();const input=$(`comment-${id}`);try{await api(`/api/posts/${id}/comments`,{method:'POST',body:JSON.stringify({body:input.value})});const box=$(`comments-${id}`);box.classList.add('hidden');await toggleComments(id)}catch(e2){alert(e2.message)}}
-async function sharePost(id){const p=posts.find(x=>x.id===id);const text=`${p?.name||'Alguien'} compartió en Vínora: ${p?.body||'una publicación'}`;try{if(navigator.share)await navigator.share({title:'Vínora',text});else{await navigator.clipboard.writeText(text);alert('Texto copiado.')}}catch(e){if(e.name!=='AbortError')alert('No se pudo compartir.')}}
-async function renderSaved(){const d=await api('/api/saved');posts=d.posts;$('pageContent').innerHTML=posts.length?posts.map(postCard).join(''):'<div class="card empty">Todavía no has guardado publicaciones.</div>'}
-async function searchPeople(){const q=$('search').value.trim();if(!q)return;if(currentPage!=='explore')await showPage('explore');try{const d=await api('/api/profiles?q='+encodeURIComponent(q));people=d.users;drawPeople(people)}catch(e){$('pageContent').textContent=e.message}}
-async function renderExplore(){const q=$('search').value.trim();$('pageContent').innerHTML=`<section class="card"><h3>Encuentra personas</h3><p class="muted">Busca perfiles por nombre usando la lupa de arriba.</p><div id="peopleResults" class="results"></div></section><section class="card"><h3>Solicitudes de seguimiento</h3><div id="requestsList" class="results">Cargando…</div></section>`;if(q){const d=await api('/api/profiles?q='+encodeURIComponent(q));drawPeople(d.users)}await loadRequests()}
-function drawPeople(list){const el=$('peopleResults');if(!el)return;el.innerHTML=list.length?list.map(u=>`<div class="person-result">${avatar(u)}<div class="grow"><strong>${esc(u.name)}</strong><p class="muted small">${esc(u.bio||'Usuario de Vínora')}</p></div><button class="btn-soft" onclick="openProfile('${u.id}')">Ver perfil</button></div>`).join(''):'<p class="muted">No encontramos perfiles con ese nombre.</p>'}
-async function loadRequests(){const el=$('requestsList');if(!el)return;try{const d=await api('/api/follow-requests');el.innerHTML=d.requests.length?d.requests.map(u=>`<div class="person-result">${avatar(u)}<div class="grow"><strong>${esc(u.name)}</strong></div><button class="btn" onclick="decideRequest('${u.id}','accept')">Aceptar</button><button class="btn-line" onclick="decideRequest('${u.id}','reject')">Rechazar</button></div>`).join(''):'<p class="muted small">No tienes solicitudes pendientes.</p>'}catch(e){el.textContent=e.message}}
-async function decideRequest(id,decision){try{await api(`/api/follow-requests/${id}/${decision}`,{method:'POST'});await loadRequests()}catch(e){alert(e.message)}}
-async function openProfile(id){profileTarget=id;await showPage('publicProfile')}
-async function renderPublicProfile(){if(!profileTarget){$('pageContent').innerHTML='<div class="card empty">Selecciona un perfil para verlo.</div>';return}const d=await api('/api/profiles/'+profileTarget),u=d.user;$('pageContent').innerHTML=`<section class="card profile-card"><div class="profile-cover"></div><div class="profile-top">${avatar(u,'big')}<div style="flex:1"><h2 style="margin:0">${esc(u.name)}</h2><p class="muted small">${d.followers} seguidores · ${d.following} seguidos</p></div>${d.isFollowing?'':`<button class="btn" onclick="followUser('${u.id}')">${d.requestPending?'Solicitud enviada':'Seguir'}</button>`}<button class="btn-soft" onclick="startConversation('${u.id}')">Mensaje</button></div><div class="profile-meta"><p>${esc(u.bio||'')}</p>${!d.allowed?'<div class="notice">Este perfil es privado. Sigue a esta persona y espera su aprobación para ver sus publicaciones.</div>':''}</div></section>${d.allowed?(d.posts.length?d.posts.map(postCard).join(''):'<div class="card empty">Este usuario todavía no tiene publicaciones.</div>'):''}`}
-async function followUser(id){try{const d=await api('/api/follow/'+id,{method:'POST'});alert(d.pending?'Solicitud enviada.':'Ahora sigues este perfil.');await renderPublicProfile()}catch(e){alert(e.message)}}
-async function renderMyProfile(){const d=await api('/api/me');me=d.user;$('pageContent').innerHTML=`<section class="card profile-card"><div class="profile-cover"></div><div class="profile-top">${avatar(me,'big')}<div style="flex:1"><h2 style="margin:0">${esc(me.name)}</h2><p class="muted small">Tu espacio en Vínora</p></div><button class="btn-soft" onclick="showPage('settings')">Editar perfil</button></div><div class="profile-meta"><p>${esc(me.bio||'Añade una biografía desde configuración.')}</p><span class="muted small">${me.isPrivate?'Perfil privado':'Perfil público'}</span></div></section><h3>Tus publicaciones</h3>`;const p=await api('/api/posts');const mine=p.posts.filter(x=>x.userId===me.id);$('pageContent').insertAdjacentHTML('beforeend',mine.length?mine.map(postCard).join(''):'<div class="card empty">Todavía no has publicado nada.</div>')}
-async function renderSettings(){const d=await api('/api/me');me=d.user;$('pageContent').innerHTML=`<section class="card"><h3>Editar perfil</h3><div class="row">${avatar(me,'big')}<div><label class="file-label" for="avatarFile">Cambiar foto</label><input id="avatarFile" class="hidden" type="file" accept="image/*" onchange="pickAvatar(this)"><p class="muted small">Imagen de hasta 5 MB</p></div></div><input id="editName" class="field" maxlength="80" value="${esc(me.name)}" placeholder="Nombre"><textarea id="editBio" class="field" maxlength="500" placeholder="Biografía">${esc(me.bio)}</textarea><button class="btn" onclick="saveProfile()">Guardar perfil</button></section><section class="card"><h3>Privacidad</h3><div class="setting-row"><div><strong>Perfil privado</strong><div class="muted small">Solo seguidores aprobados podrán ver tus publicaciones e historias.</div></div><input id="privateToggle" class="toggle" type="checkbox" ${me.isPrivate?'checked':''} onchange="saveSettings()"></div></section><section class="card"><h3>Apariencia</h3><p class="muted small">Elige el tema que prefieras.</p><select id="themeSelect" class="field" onchange="saveSettings()"><option value="sand" ${me.theme==='sand'?'selected':''}>Neutral elegante</option><option value="light" ${me.theme==='light'?'selected':''}>Claro minimalista</option><option value="dark" ${me.theme==='dark'?'selected':''}>Oscuro</option><option value="sage" ${me.theme==='sage'?'selected':''}>Verde salvia</option><option value="rose" ${me.theme==='rose'?'selected':''}>Rosa suave</option></select></section><section class="card"><h3>Seguridad</h3><p class="muted small">Cierra tu sesión de forma segura en este dispositivo.</p><button class="btn-line" onclick="logout()">Cerrar sesión</button></section>`}
-let avatarPending=undefined;async function pickAvatar(input){try{avatarPending=await fileData(input.files[0]);}catch(e){alert(e.message)}}
-async function saveProfile(){try{const d=await api('/api/profile',{method:'PUT',body:JSON.stringify({name:$('editName').value,bio:$('editBio').value,avatar:avatarPending===undefined?me.avatar:avatarPending})});me=d.user;avatarPending=undefined;alert('Perfil actualizado.');await showPage('profile')}catch(e){alert(e.message)}}
-async function saveSettings(){try{const d=await api('/api/settings',{method:'PUT',body:JSON.stringify({isPrivate:$('privateToggle').checked,theme:$('themeSelect').value})});me=d.user;document.body.dataset.theme=me.theme}catch(e){alert(e.message)}}
-async function startConversation(userId){try{const d=await api('/api/conversations',{method:'POST',body:JSON.stringify({userId})});activeConversation=d.conversationId;await showPage('messages')}catch(e){alert(e.message)}}
-async function renderMessages(){const [s,c]=await Promise.all([api('/api/stories'),api('/api/conversations')]);stories=s.stories;$('pageContent').innerHTML=`<section class="card"><div class="row between"><strong>Historias</strong><span class="muted small">Fotos que duran 24 horas</span></div><div class="story-strip" id="storyStrip"></div></section><section class="card"><div class="row between"><h3 style="margin:0">Mensajes</h3><button class="btn-soft" onclick="newMessage()">＋ Nuevo mensaje</button></div><div class="chat-layout" style="margin-top:14px"><div class="chat-list" id="chatList"></div><div class="chat-room" id="chatRoom"><div class="empty">Selecciona una conversación o inicia una nueva.</div></div></div></section>`;renderStoryStrip();drawConversations(c.conversations);if(activeConversation)await openConversation(activeConversation)}
-function drawConversations(list){const el=$('chatList');if(!el)return;el.innerHTML=list.length?list.map(x=>`<button class="chat-item ${activeConversation===x.id?'active':''}" onclick="openConversation('${x.id}')">${avatar({name:x.name,avatar:x.avatar})}<span style="min-width:0"><strong>${esc(x.name)}</strong><br><span class="muted small">${esc(x.last_message||'Inicia una conversación')}</span></span></button>`).join(''):'<div class="empty">Aún no tienes mensajes.</div>'}
-async function newMessage(){const name=prompt('Escribe el nombre exacto de la persona a quien quieres enviar un mensaje:');if(!name)return;try{const d=await api('/api/profiles?q='+encodeURIComponent(name));const match=d.users.find(u=>u.name.toLowerCase()===name.trim().toLowerCase());if(!match)return alert('No encontramos ese perfil. Busca su nombre en Explorar.');await startConversation(match.id)}catch(e){alert(e.message)}}
-async function openConversation(id){activeConversation=id;const d=await api(`/api/conversations/${id}/messages`);const room=$('chatRoom');if(!room)return;room.innerHTML=`<div class="chat-messages" id="chatMessages">${d.messages.map(m=>`<div class="bubble ${m.senderId===me.id?'mine':''}">${esc(m.body)}<div class="small" style="opacity:.7;margin-top:3px">${new Date(m.created_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</div></div>`).join('')}</div><form class="chat-compose" onsubmit="sendMessage(event,'${id}')"><input id="chatInput" class="field" maxlength="2000" placeholder="Escribe un mensaje…" autocomplete="off"><button class="btn">Enviar</button></form>`;const m=$('chatMessages');m.scrollTop=m.scrollHeight;if(chatTimer)clearInterval(chatTimer);chatTimer=setInterval(async()=>{if(currentPage==='messages'&&activeConversation===id){try{const fresh=await api(`/api/conversations/${id}/messages`);const box=$('chatMessages');if(box){box.innerHTML=fresh.messages.map(x=>`<div class="bubble ${x.senderId===me.id?'mine':''}">${esc(x.body)}</div>`).join('');box.scrollTop=box.scrollHeight}}catch{}}},5000)}
-async function sendMessage(e,id){e.preventDefault();const input=$('chatInput');try{await api(`/api/conversations/${id}/messages`,{method:'POST',body:JSON.stringify({body:input.value})});input.value='';await openConversation(id)}catch(e2){alert(e2.message)}}
-(async()=>{const params=new URLSearchParams(location.search);if(params.has('reset')){$('resetBox').classList.remove('hidden');$('forgotBox').classList.add('hidden')}await boot()})();
-</script></body></html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Afrodita, plataforma de contenido exclusivo por suscripción.">
+  <meta name="theme-color" content="#100b0e">
+  <title>Afrodita | Contenido exclusivo</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/app.js" defer></script>
+</head>
+<body>
+
+  <div id="age-gate" class="age-gate">
+    <div class="age-card">
+      <div class="brand-symbol">A</div>
+      <h1>AFRODITA</h1>
+      <p class="gold-text">UN MUNDO EXCLUSIVO</p>
+      <div class="age-line"></div>
+      <h2>Acceso exclusivo para adultos</h2>
+      <p>Debes tener al menos 18 años para acceder a esta plataforma.</p>
+      <button id="age-yes" class="btn btn-gold">
+        Soy mayor de 18 años
+      </button>
+      <button id="age-no" class="btn btn-outline">
+        Salir
+      </button>
+      <small>La confirmación inicial no sustituye una verificación legal de edad.</small>
+    </div>
+  </div>
+
+  <header class="header">
+    <a href="#" class="logo">AFRODITA<span>.</span></a>
+
+    <nav class="nav">
+      <a href="#inicio" data-i18n="home">Inicio</a>
+      <a href="#creadores" data-i18n="creators">Creadores</a>
+      <a href="#planes" data-i18n="plans">Suscripciones</a>
+    </nav>
+
+    <div class="header-actions">
+      <button id="language-btn" class="language-btn">EN</button>
+      <a href="#registro" class="btn btn-small btn-gold" data-i18n="login">
+        Iniciar sesión
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section id="inicio" class="hero">
+      <div class="hero-content">
+        <span class="eyebrow" data-i18n="eyebrow">
+          CONTENIDO EXCLUSIVO PARA ADULTOS
+        </span>
+
+        <h1 data-i18n="heroTitle">
+          Tu espacio.<br>
+          Tu contenido.<br>
+          <span>Tu exclusividad.</span>
+        </h1>
+
+        <p data-i18n="heroText">
+          Descubre creadores, accede a contenido exclusivo
+          y disfruta de una experiencia privada.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#creadores" class="btn btn-gold" data-i18n="discover">
+            Descubrir creadores
+          </a>
+          <a href="#planes" class="btn btn-outline" data-i18n="subscribe">
+            Ver suscripciones
+          </a>
+        </div>
+
+        <div class="hero-note">
+          <span>18+</span>
+          <span data-i18n="private">Privacidad y acceso exclusivo</span>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="art-circle"></div>
+        <div class="art-letter">A</div>
+        <div class="art-caption">AFRODITA</div>
+      </div>
+    </section>
+
+    <section id="creadores" class="section creators-section">
+      <div class="section-heading">
+        <span class="eyebrow" data-i18n="community">NUESTRA COMUNIDAD</span>
+        <h2 data-i18n="creatorTitle">Descubre a nuestros creadores</h2>
+        <p data-i18n="creatorText">
+          Explora perfiles y encuentra contenido exclusivo.
+        </p>
+      </div>
+
+      <div class="creator-grid">
+        <article class="creator-card">
+          <div class="creator-image image-one">
+            <span>18+</span>
+          </div>
+          <div class="creator-info">
+            <h3>Perfil destacado</h3>
+            <p>Contenido exclusivo para suscriptores.</p>
+            <a href="#registro" class="creator-link" data-i18n="viewProfile">
+              Ver perfil →
+            </a>
+          </div>
+        </article>
+
+        <article class="creator-card">
+          <div class="creator-image image-two">
+            <span>18+</span>
+          </div>
+          <div class="creator-info">
+            <h3>Nuevo creador</h3>
+            <p>Descubre nuevas publicaciones exclusivas.</p>
+            <a href="#registro" class="creator-link" data-i18n="viewProfile">
+              Ver perfil →
+            </a>
+          </div>
+        </article>
+
+        <article class="creator-card">
+          <div class="creator-image image-three">
+            <span>18+</span>
+          </div>
+          <div class="creator-info">
+            <h3>Contenido premium</h3>
+            <p>Accede a experiencias de suscripción.</p>
+            <a href="#registro" class="creator-link" data-i18n="viewProfile">
+              Ver perfil →
+            </a>
+          </div>
+        </article>
+      </div>
+      <p class="demo-note">Perfiles de demostración. No representan creadores reales.</p>
+    </section>
+
+    <section id="planes" class="section plans-section">
+      <div class="section-heading">
+        <span class="eyebrow" data-i18n="exclusive">ACCESO EXCLUSIVO</span>
+        <h2 data-i18n="planTitle">Una experiencia premium</h2>
+        <p data-i18n="planText">
+          Suscríbete directamente a los creadores que te interesen.
+        </p>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-icon">✦</div>
+        <h3 data-i18n="premium">Suscripción de creador</h3>
+        <p data-i18n="premiumText">
+          Acceso a publicaciones, fotografías y videos exclusivos
+          según el plan de cada creador.
+        </p>
+        <ul>
+          <li data-i18n="benefit1">Contenido exclusivo</li>
+          <li data-i18n="benefit2">Acceso a perfiles privados</li>
+          <li data-i18n="benefit3">Renovación y cancelación de suscripción</li>
+        </ul>
+        <a href="#registro" class="btn btn-gold" data-i18n="start">
+          Comenzar
+        </a>
+        <small>Los pagos reales se habilitarán en una fase posterior.</small>
+      </div>
+    </section>
+
+    <section id="registro" class="section join-section">
+      <span class="eyebrow">AFRODITA</span>
+      <h2 data-i18n="joinTitle">Tu experiencia comienza aquí</h2>
+      <p data-i18n="joinText">
+        Próximamente podrás crear tu cuenta y disfrutar de contenido exclusivo.
+      </p>
+      <button class="btn btn-gold" disabled data-i18n="coming">
+        Registro próximamente
+      </button>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a href="#" class="logo">AFRODITA<span>.</span></a>
+    <p>© 2026 Afrodita. Todos los derechos reservados.</p>
+    <p>18+ | <span data-i18n="footer">Plataforma para adultos.</span></p>
+  </footer>
+
+</body>
+</html>
